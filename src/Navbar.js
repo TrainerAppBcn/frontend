@@ -6,8 +6,16 @@ export default function Navbar() {
             <nav className="navbar">
                 <h1>NAVBAR</h1>
                 <div className="navbar">
-                    <a href="/">Home</a><br></br>
-                    <a href="/customerlist">Customers' list</a>
+                    <a href="/" style={{
+                        color: "white",
+                        backgroundColor: '#f1356d',
+                        borderRadius: '8px'
+                    }} >Home</a><br></br>
+                    <a href="/customerlist" style={{
+                        color: "white",
+                        backgroundColor: '#f1356d',
+                        borderRadius: '8px'
+                    }} >Customers' list</a>
                 </div>
             </nav>
         </div>

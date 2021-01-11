@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import './App.css';
+// import './App.css';
 import Navbar from './Navbar';
+import CustomerDetails from './pages/CustomerDetails';
 
 import CustomersList from './pages/CustomersList';
 
@@ -12,6 +13,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/customerslist" render={() => <CustomersList trainerId={'5ffb2d0deed9fa20eab8044f'}/>} /> 
+        <Route exact path="/customerdetails" render={() => <CustomerDetails />} />
       </Switch>
     </div>
   );
