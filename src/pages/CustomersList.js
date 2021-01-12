@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import services from "../lib/service";
+import { Link } from "react-router-dom";
 
 function CustomersList ({trainerId}) {
 
@@ -23,7 +24,9 @@ function CustomersList ({trainerId}) {
     };
 
     const handleCustomerData = (customerId) => {
-        console.log("Cliking to see customer personal data of customerId: ", customerId);
+        console.log("On link to customer details...");
+        <Link to='/customerdetails' />
+        // console.log("Cliking to see customer personal data of customerId: ", customerId);
     };
 
     return (
@@ -34,11 +37,19 @@ function CustomersList ({trainerId}) {
                     return (
                         <div key={customer._id} className="customerdata">
                             <h2>Surname: </h2><p>{customer.surname},</p> 
-                            <h2>Name: </h2><p1>{customer.name}</p1>
+                            <h2>Name: </h2><p>{customer.name}</p>
+                            {/* {console.log(customer)} */}
                             <button onClick={() => handleSessions(customer._id)} className="sessionsbtn"> Sessions</button>
                             {/* <button onClick={() => handleCustomerData(customer._id)} className="personalbtn"> Personal data</button> */}
-                            <button onClick={() => handleCustomerData(customer._id)} className="personalbtn"> Personal data</button>
-
+                            {/* <Link to='/customerdetails' className="linktodetails">
+                                Personal data
+                            </Link> */}
+                            <Link to={{
+                                pathname: '/customerdetails',
+                                state: {customer: {...customer}}
+                            }} className="linktodetails">
+                                Personal data
+                            </Link>
                         </div>
                     )
                 })}

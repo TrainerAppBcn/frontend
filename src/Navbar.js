@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
     return (
@@ -6,16 +7,13 @@ export default function Navbar() {
             <nav className="navbar">
                 <h1>NAVBAR</h1>
                 <div className="navbar">
-                    <a href="/" style={{
-                        color: "white",
-                        backgroundColor: '#f1356d',
-                        borderRadius: '8px'
-                    }} >Home</a><br></br>
-                    <a href="/customerlist" style={{
-                        color: "white",
-                        backgroundColor: '#f1356d',
-                        borderRadius: '8px'
-                    }} >Customers' list</a>
+                    <Link to='/signin' className="linktosignin">
+                        Signin
+                    </Link>
+                    <br></br>
+                    <Link to='/customerslist' className="linktomain">
+                        Main page
+                    </Link>
                 </div>
             </nav>
         </div>

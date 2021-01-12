@@ -43,6 +43,13 @@
   margin: 0 auto;
 }
 
+/* Navbar styles */
+.linktomain, .linktosignin, .linktodetails {
+  color: white;
+  background-color: #f1356d;
+  border-Radius: 8px
+}
+
 /* customer list previews / list */
 .customerdata {
   display: flex;
