@@ -1,8 +1,10 @@
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import TrainerContext from "../lib/components/TrainerProvider";
 
 console.log("I'm within CustomersList.js");
 function CustomersList () {
+    const context = useContext(TrainerContext);
     console.log("And now within function CustomerList.js");
     const handleSessions = (customerId) => {
         console.log("Clicking to see sessions of customerId: ", customerId);
@@ -16,10 +18,10 @@ function CustomersList () {
 
     return (
         <div>
-            <TrainerContext.Consumer>
+            {/* <TrainerContext.Consumer> */}
                 <div className="custlist">
                     <h1 >Customers List</h1>
-                    {(context) => {context.customersList.map(customer => {
+                    {context.customersList.map(customer => {
                         return (
                             <div key={customer._id} className="customerdata">
                                 <h2>Surname: </h2><p>{customer.surname},</p> 
@@ -38,12 +40,14 @@ function CustomersList () {
                                 </Link>
                             </div>
                         )
-                    })}}
+                    })}
                 </div>
-            </TrainerContext.Consumer>
+            {/* </TrainerContext.Consumer> */}
         </div>
     );
 };
+
+export default CustomersList;
 
 // function CustomersList ({trainerId}) {
 
@@ -101,4 +105,3 @@ function CustomersList () {
 //     );
 // };
 
-export default CustomersList;

@@ -5,7 +5,9 @@ import Navbar from './Navbar';
 import CustomerDetails from './pages/CustomerDetails';
 import CustomersList from './pages/CustomersList';
 import Login from './pages/Login';
-import MyProvider from './lib/components/TrainerProvider';
+import TrainerProvider from './lib/components/TrainerProvider';
+import TrainerContext from './lib/components/TrainerProvider';
+import { computeHeadingLevel } from '@testing-library/react';
 
 // IMPORTANT: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
 
@@ -15,22 +17,19 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <MyProvider trainerId={"5ffb2d0deed9fa20eab8044f"}>
+      <TrainerProvider >
+        {console.log("I'm back from TrainerProvider...")}
         <Switch>
-          <Route exact path="/customerslist" 
-            render={() => isLoggedin ? <CustomersList /> 
-                                    : <Redirect to="/signin" />} /> 
-          <Route exact path="/customerdetails" 
-            render={(customer) => isLoggedin ? <CustomerDetails {...customer} /> 
-                                    : <Redirect to="/signin" />} /> 
-          <Route exact path="/signin" 
-            render={() => !isLoggedin ? <Login />
-                                      : <Redirect to="/customerslist" />} />
+          <Route exact path="/customerslist" component={CustomersList}/> 
+          <Route exact path="/customerdetails" component={CustomerDetails}/> 
+          <Route exact path="/signin" component={Login}/>
         </Switch>
-      </MyProvider>
+      </TrainerProvider>
     </div>
   );
 }
+
+export default App;
 
 // function App() {
 //   const isLoggedin = true; // [AMN] Provisionally till we have the signup/signin ready
@@ -52,5 +51,3 @@ function App() {
 //   );
 // }
 
-
-export default App;
