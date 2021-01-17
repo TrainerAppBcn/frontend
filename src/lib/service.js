@@ -15,7 +15,7 @@ class Service {
             const res = await this.service.get(getRoute);
             return res.data;
         } catch (error) {
-            console.log(error);
+            console.log("The error from getCustomers is: ", error);
         };
     };
 };

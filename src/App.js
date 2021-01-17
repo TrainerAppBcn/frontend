@@ -5,8 +5,8 @@ import Navbar from './Navbar';
 import CustomerDetails from './pages/CustomerDetails';
 import CustomersList from './pages/CustomersList';
 import Login from './pages/Login';
-import TrainerProvider from './lib/components/TrainerProvider';
-import TrainerContext from './lib/components/TrainerProvider';
+import TrainerProvider from './lib/components/TrainerContext';
+import TrainerContextProvider from './lib/components/TrainerContext';
 import { computeHeadingLevel } from '@testing-library/react';
 
 // IMPORTANT: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
@@ -17,14 +17,14 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <TrainerProvider >
+      <TrainerContextProvider >
         {console.log("I'm back from TrainerProvider...")}
         <Switch>
           <Route exact path="/customerslist" component={CustomersList}/> 
           <Route exact path="/customerdetails" component={CustomerDetails}/> 
           <Route exact path="/signin" component={Login}/>
         </Switch>
-      </TrainerProvider>
+      </TrainerContextProvider>
     </div>
   );
 }
