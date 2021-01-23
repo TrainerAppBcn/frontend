@@ -1,5 +1,13 @@
 import axios from "axios";
 
+// [AMN] Important note. What follows can be reviewed on the Youtube channel: The Net
+// Nija here: https://www.youtube.com/watch?v=aKOQtGLT-Yk&list=WL&index=45 (tutorial
+// #24 - useEffect Cleanup)
+// In case we detect on the console that appears a message saying that we try to 
+// update the state and the component was unmounted, and this can happen when the 
+// user navigates to another page leaving the current w/o time to render the data
+// then we need a useEffect hook to cleanup the backend return and avoid this.  
+
 class Service {
     constructor() {
         this.service = axios.create({

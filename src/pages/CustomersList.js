@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import {TrainerContext} from "../lib/components/TrainerContext";
+import {TrainerContext} from "../contexts/TrainerContext";
 
 console.log("I'm within CustomersList.js");
 function CustomersList () {
@@ -11,15 +11,15 @@ function CustomersList () {
     console.log("Within function CustomerList.js with context: ", customersList);
     console.log("Setcustomerslist: ", setCustomersList);
     console.log("Fucntion fetchallcustomers: ", fetchAllCustomers);
-    const handleSessions = (customerId) => {
-        console.log("Clicking to see sessions of customerId: ", customerId);
-    };
+    // const handleSessions = (customerId) => {
+    //     console.log("Clicking to see sessions of customerId: ", customerId);
+    // };
 
-    const handleCustomerData = (customerId) => {
-        console.log("On link to customer details...");
-        <Link to='/customerdetails' />
-        // console.log("Cliking to see customer personal data of customerId: ", customerId);
-    };
+    // const handleCustomerData = (customerId) => {
+    //     console.log("On link to customer details...");
+    //     <Link to='/customerdetails' />
+    //     // console.log("Cliking to see customer personal data of customerId: ", customerId);
+    // };
 
     // On the first render we look for the customers of the trainer. If we wanted to look for the customers
     // each time the customersList changed we should put at the end of the useEffect [customersList] instead
@@ -41,15 +41,15 @@ function CustomersList () {
                 {customersList && customersList.map(customer => {
                     return (
                         <div key={customer._id} className="customerdata">
-                            <h2>Surname: </h2><p>{customer.surname},</p> 
-                            <h2>Name: </h2><p>{customer.name}</p>
-                            <button onClick={() => handleSessions(customer._id)} className="sessionsbtn"> Sessions</button>
-                            <Link to={{
-                                pathname: '/customerdetails',
-                                state: {customer: {...customer}}
-                            }} className="linktodetails">
-                                Personal data
+                            <Link to={`/customerdetails/${customer._id}`}>
+                                <h2>Surname: </h2><p>{customer.surname},</p>
+                                <h2>Name: </h2><p>{customer.name}</p>
                             </Link>
+                            <div>
+                                <Link to={`/customersessions/${customer._id}`}>
+                                    Customer Sessions
+                                </Link>
+                            </div>
                         </div>
                     )
                 })}
@@ -59,60 +59,3 @@ function CustomersList () {
 };
 
 export default CustomersList;
-
-// function CustomersList ({trainerId}) {
-
-//     const [customersList, setCustomersList] = useState([]);
-
-//     const fetchAllCustomers = async (trainerId) => {
-//         try {
-//             const customers = await services.getCustomers(trainerId);
-//             setCustomersList(customers);      
-//         } catch (error) {
-//             console.log("Error while getting the customers: ", error);
-//             this.setState({message: "Error while getting the curtomers: " + error});
-//         };
-
-//     };
-
-//     fetchAllCustomers(trainerId);
-
-//     const handleSessions = (customerId) => {
-//         console.log("Clicking to see sessions of customerId: ", customerId);
-//     };
-
-//     const handleCustomerData = (customerId) => {
-//         console.log("On link to customer details...");
-//         <Link to='/customerdetails' />
-//         // console.log("Cliking to see customer personal data of customerId: ", customerId);
-//     };
-
-//     return (
-//         <div>
-//             <div className="custlist">
-//                 <h1 >Customers List</h1>
-//                 {customersList.map(customer => {
-//                     return (
-//                         <div key={customer._id} className="customerdata">
-//                             <h2>Surname: </h2><p>{customer.surname},</p> 
-//                             <h2>Name: </h2><p>{customer.name}</p>
-//                             {/* {console.log(customer)} */}
-//                             <button onClick={() => handleSessions(customer._id)} className="sessionsbtn"> Sessions</button>
-//                             {/* <button onClick={() => handleCustomerData(customer._id)} className="personalbtn"> Personal data</button> */}
-//                             {/* <Link to='/customerdetails' className="linktodetails">
-//                                 Personal data
-//                             </Link> */}
-//                             <Link to={{
-//                                 pathname: '/customerdetails',
-//                                 state: {customer: {...customer}}
-//                             }} className="linktodetails">
-//                                 Personal data
-//                             </Link>
-//                         </div>
-//                     )
-//                 })}
-//             </div>
-//         </div>
-//     );
-// };
-

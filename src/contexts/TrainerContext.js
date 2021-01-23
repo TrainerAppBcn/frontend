@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-import services from "../service";
+import services from "../lib/service";
 
 export const TrainerContext = createContext();
 
@@ -9,7 +9,43 @@ function TrainerContextProvider (props) {
     
     const [customersList, setCustomersList] = useState(null);
     const [error, setError] = useState(null);
-        //     {
+    
+    const fetchAllCustomers = async (trainerId) => {
+        try {
+            console.log("Within try");
+            const customers = await services.getCustomers(trainerId);
+            if (!customers) {
+                throw Error(`The customers from the trainer with id ${trainerId} weren't fetched.`);
+            };
+            console.log("The customers are: ", customers);
+            setCustomersList(customers);      
+            setError(null);
+        } catch (error) {
+            setError(error.message);
+            console.log("Error while getting the customers: ", error);
+        };
+
+    };
+
+    // const TrainerContext = fetchAllCustomers(trainerId);
+
+    // console.log("Return from back: ", customersList);
+
+    return (
+        
+        <TrainerContext.Provider value={{customersList, setCustomersList, 
+                                        error, setError, 
+                                        fetchAllCustomers}} >
+            {/* {console.log("TrainerProvider return: ", customersList)}
+            {console.log("TrainerProvider function return: ", setCustomersList)} */}
+            {props.children} 
+        </TrainerContext.Provider>
+    );
+};
+
+export default TrainerContextProvider;
+
+//     {
     // const [customersList, setCustomersList] = useState([
     //     {
     //         _id: '5ffb2d57eed9fa20eab80450',
@@ -86,37 +122,3 @@ function TrainerContextProvider (props) {
 
     // ]);
 
-    const fetchAllCustomers = async (trainerId) => {
-        try {
-            console.log("Within try");
-            const customers = await services.getCustomers(trainerId);
-            if (!customers) {
-                throw Error(`The customers from the trainer with id ${trainerId} weren't fetched.`);
-            };
-            console.log("The customers are: ", customers);
-            setCustomersList(customers);      
-            setError(null);
-        } catch (error) {
-            setError(error.message);
-            console.log("Error while getting the customers: ", error);
-        };
-
-    };
-
-    // const TrainerContext = fetchAllCustomers(trainerId);
-
-    // console.log("Return from back: ", customersList);
-
-    return (
-        
-        <TrainerContext.Provider value={{customersList, setCustomersList, 
-                                        error, setError, 
-                                        fetchAllCustomers}} >
-            {/* {console.log("TrainerProvider return: ", customersList)}
-            {console.log("TrainerProvider function return: ", setCustomersList)} */}
-            {props.children} 
-        </TrainerContext.Provider>
-    );
-};
-
-export default TrainerContextProvider;

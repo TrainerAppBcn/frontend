@@ -12,8 +12,11 @@ export default function Navbar() {
                     </Link>
                     <br></br>
                     <Link to='/customerslist' className="linktomain">
-                        Main page
+                        Customers List
                     </Link>
+                    <Link to='/trainerdetails' className="linktomain">
+                        Trainer details
+                    </Link>                   
                 </div>
             </nav>
         </div>

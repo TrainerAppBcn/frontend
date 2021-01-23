@@ -1,12 +1,14 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
 // import './App.css';
-import Navbar from './Navbar';
+import Navbar from './lib/components/Navbar';
 import CustomerDetails from './pages/CustomerDetails';
 import CustomersList from './pages/CustomersList';
+import TrainerDetails from './pages/TrainerDetails';
+import CustomerSessions from './pages/CustomerSessions';
 import Login from './pages/Login';
-import TrainerProvider from './lib/components/TrainerContext';
-import TrainerContextProvider from './lib/components/TrainerContext';
+import TrainerProvider from './contexts/TrainerContext';
+import TrainerContextProvider from './contexts/TrainerContext';
 import { computeHeadingLevel } from '@testing-library/react';
 
 // IMPORTANT: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
@@ -15,17 +17,21 @@ import { computeHeadingLevel } from '@testing-library/react';
 function App() {
   const isLoggedin = true; // [AMN] Provisionally till we have the signup/signin ready
   return (
-    <div className="App">
-      <Navbar />
-      <TrainerContextProvider >
-        {console.log("I'm back from TrainerProvider...")}
-        <Switch>
-          <Route exact path="/customerslist" component={CustomersList}/> 
-          <Route exact path="/customerdetails" component={CustomerDetails}/> 
-          <Route exact path="/signin" component={Login}/>
-        </Switch>
-      </TrainerContextProvider>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <TrainerContextProvider >
+          {console.log("I'm back from TrainerProvider...")}
+          <Switch>
+            <Route exact path="/customerslist" component={CustomersList}/> 
+            <Route exact path="/customerdetails/:id" component={CustomerDetails}/> 
+            <Route exact path="/customersessions/:id" component={CustomerSessions}/>
+            <Route exact path="/trainerdetails" component={TrainerDetails}/> 
+            <Route exact path="/signin" component={Login}/>
+          </Switch>
+        </TrainerContextProvider>
+      </div>
+    </Router>
   );
 }
 
