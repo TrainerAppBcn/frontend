@@ -75,9 +75,42 @@
   text-decoration: none;
 }
 
+/* Customer update data form */
 .custdata {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  max-width: 300px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.custdata form {
+  width: 600px;
+}
+
+.custdata label {
+  text-align: left;
+  display: block;
+}
+
+.custdata h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+
+.custdata input, .custdata select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block; 
+}
+
+.custdata button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
 }
