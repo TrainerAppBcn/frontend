@@ -7,6 +7,7 @@ import CustomersList from './pages/CustomersList';
 import TrainerDetails from './pages/TrainerDetails';
 import CustomerSessions from './pages/CustomerSessions';
 import Login from './pages/Login';
+import Signup from './pages/signup';
 import TrainerProvider from './contexts/TrainerContext';
 import TrainerContextProvider from './contexts/TrainerContext';
 import { computeHeadingLevel } from '@testing-library/react';
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/customersessions/:id" component={CustomerSessions}/>
             <Route exact path="/trainerdetails" component={TrainerDetails}/> 
             <Route exact path="/signin" component={Login}/>
+            <Route exact path="/signup" component={Signup}/>
           </Switch>
         </TrainerContextProvider>
       </div>
