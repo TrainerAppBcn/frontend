@@ -11,7 +11,7 @@ export default function Navbar() {
                         Signin
                     </Link>
                     <br></br>
-                    <Link to='/customerslist' className="linktomain">
+                    <Link to='/' className="linktomain">
                         Customers List
                     </Link>
                     <Link to='/trainerdetails' className="linktomain">
