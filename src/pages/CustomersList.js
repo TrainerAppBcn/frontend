@@ -8,18 +8,9 @@ function CustomersList () {
     const {customersList, setCustomersList, 
            error, setError,
            fetchAllCustomers} = useContext(TrainerContext);
-    console.log("Within function CustomerList.js with context: ", customersList);
-    console.log("Setcustomerslist: ", setCustomersList);
-    console.log("Fucntion fetchallcustomers: ", fetchAllCustomers);
-    // const handleSessions = (customerId) => {
-    //     console.log("Clicking to see sessions of customerId: ", customerId);
-    // };
-
-    // const handleCustomerData = (customerId) => {
-    //     console.log("On link to customer details...");
-    //     <Link to='/customerdetails' />
-    //     // console.log("Cliking to see customer personal data of customerId: ", customerId);
-    // };
+    // console.log("Within function CustomerList.js with context: ", customersList);
+    // console.log("Setcustomerslist: ", setCustomersList);
+    // console.log("Fucntion fetchallcustomers: ", fetchAllCustomers);
 
     // On the first render we look for the customers of the trainer. If we wanted to look for the customers
     // each time the customersList changed we should put at the end of the useEffect [customersList] instead

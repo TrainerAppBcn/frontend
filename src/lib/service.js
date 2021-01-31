@@ -18,6 +18,7 @@ class Service {
 
     getCustomers = async (trainerId) => {
         // const getRoute = "/customer-routes/customers/5ffb2d0deed9fa20eab8044f";
+        console.log("Service getting customers...");
         const getRoute = "/customer-routes/customers/" + trainerId;
         try {
             const res = await this.service.get(getRoute);
@@ -26,6 +27,17 @@ class Service {
             console.log("The error from getCustomers is: ", error);
         };
     };
+
+    updateCustomer = async (customerId, customerData) => {
+        console.log("Service updating a customer data...");
+        const putRoute = "/customer-routes/customerupdate/" + customerId;
+        try {
+            const res = await this.service.put(putRoute, {customerData});
+            return res.data;
+        } catch (error) {
+            console.log("The error from updateCustomer is: ", error);
+        }
+    }
 };
 
 const axiosRequestFunctions = new Service();
