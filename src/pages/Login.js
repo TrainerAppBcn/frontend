@@ -23,6 +23,29 @@ const Login = ({history}) => {
                 console.log('log email password error')
                 seterror(error.message)
             });
+    
+        await app.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            console.log(idToken)
+            // se puede guardar este token en el front para luego hacer consultas como un jwt
+            // para recogerlo en el back 
+            // TODO
+            /* esto sería en node 
+            admin
+            .auth()
+            .verifyIdToken(idToken)
+            .then((decodedToken) => {
+                const uid = decodedToken.uid;
+                // ...
+            })
+            .catch((error) => {
+                // Handle error
+            });
+            */
+            // Send token to your backend via HTTPS
+            // ...
+            }).catch(function(error) {
+                // Handle error
+            });
         
     };
 
@@ -39,6 +62,29 @@ const Login = ({history}) => {
             console.log('log social error')
             seterror(error.message)
         });
+
+        await app.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            console.log(idToken)
+            // se puede guardar este token en el front para luego hacer consultas como un jwt
+            // para recogerlo en el back 
+            // TODO
+            /* esto sería en node 
+            admin
+            .auth()
+            .verifyIdToken(idToken)
+            .then((decodedToken) => {
+                const uid = decodedToken.uid;
+                // ...
+            })
+            .catch((error) => {
+                // Handle error
+            });
+            */
+            // Send token to your backend via HTTPS
+            // ...
+            }).catch(function(error) {
+                // Handle error
+            });
     }
 
 
