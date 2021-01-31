@@ -36,8 +36,19 @@ class Service {
             return res.data;
         } catch (error) {
             console.log("The error from updateCustomer is: ", error);
-        }
-    }
+        };
+    };
+
+    deleteCustomer = async (customerId) => {
+        console.log("Service deleting customer");
+        const delRoute = "/customer-routes/customerdelete/" + customerId;
+        try {
+            const res = await this.service.delete(delRoute);
+            return res.data;
+        } catch (error) {
+            console.log("The error from deleteCustomer is: ", error);
+        };
+    };
 };
 
 const axiosRequestFunctions = new Service();

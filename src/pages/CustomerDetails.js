@@ -1,11 +1,11 @@
 import React, {useContext, useState} from 'react';
 import { useParams } from 'react-router-dom';
-import {TrainerContext} from "../contexts/TrainerContext";
+import { TrainerContext } from "../contexts/TrainerContext";
 
 export default function CustomerDetails() {
 
     const { id } = useParams(); // It grabs the id parameter defined on the route.
-    const {customersList, setCustomersList, updateCustomer, isPending} = useContext(TrainerContext);
+    const {customersList, setCustomersList, updateCustomer, isPending, deleteCustomer} = useContext(TrainerContext);
     let customerData, indexData, error;
     // console.log("CustomersList: ", customersList);
     // console.log("Is Pending: ", isPending);
@@ -63,7 +63,12 @@ export default function CustomerDetails() {
         // console.log("Ispending before update: ", isPending);
         updateCustomer(indexData);
         // console.log("IsPending after update: ", isPending);
-    }
+    };
+
+    function handleDelete (event) {
+        event.preventDefault();
+        deleteCustomer(indexData);
+    };
 
     return (
         <div>
@@ -71,7 +76,7 @@ export default function CustomerDetails() {
                 <h2>Customer Details - { id } - {customerData.email}</h2>
                 { error && <div> { error } </div>}
                 { customerData && (
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <label>Name: </label>
                         <input
                             key="1"
@@ -195,8 +200,10 @@ export default function CustomerDetails() {
                             // onKeyDown={handleKeyDown}
                             value={customerData.injuriesDiseases}
                         />
-                        {!isPending && <button>Update Customer</button>}
-                        {isPending && <button disabled>Updating customer...</button>}
+                        {!isPending && <button onClick={handleSubmit}>Update Customer</button>}<br/>
+                        {isPending && <button disabled>Updating customer...</button>}<br/>
+                        {!isPending && <button onClick={handleDelete}>Delete Customer</button>}<br/>
+                        {isPending && <button disabled>Deleting customer...</button>}<br/>
                     </form>
                 )}
                 <p>It lacks perimeters data measurements on a loop(map) with possibilities to add measurements on different dates</p>

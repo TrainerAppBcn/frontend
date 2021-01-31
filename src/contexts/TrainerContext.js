@@ -1,5 +1,6 @@
 import React, { useState, createContext } from 'react';
 import services from "../lib/service";
+import { useHistory } from 'react-router-dom';
 
 export const TrainerContext = createContext();
 
@@ -10,6 +11,7 @@ function TrainerContextProvider (props) {
     const [customersList, setCustomersList] = useState(null);
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
+    const history = useHistory();
     
     const fetchAllCustomers = async (trainerId) => {
         try {
@@ -40,6 +42,7 @@ function TrainerContextProvider (props) {
             if (!customer) {
                 throw Error(`The customer with id: ${customersList[indexData]._id} wasn't updated.`);
             };
+            history.push('/customerslist')
             setError(null);
         } catch (error) {
             setIsPending(false);
@@ -49,13 +52,31 @@ function TrainerContextProvider (props) {
         // console.log("IsPending on trainercontext after update: ", isPending);
     };
 
+    const deleteCustomer = async (indexData) => {
+        try {
+            setIsPending(true);
+            const customer = await services.deleteCustomer(customersList[indexData]._id);
+            setIsPending(false);
+            if (!customer) {
+                throw Error(`The customer with id: ${customersList[indexData]._id} wasn't deleted.`);
+            };
+            history.push('/customerslist')
+            setError(null);
+        } catch (error) {
+            setIsPending(false);
+            setError(error.message);
+            console.log(`Error while deleting the customer with id: ${customersList[indexData]._id}`);
+        };
+    };
+
     return (
         
         <TrainerContext.Provider value={{customersList, setCustomersList, 
                                         error, setError, 
                                         fetchAllCustomers,
                                         updateCustomer,
-                                        isPending, setIsPending}} >
+                                        isPending, setIsPending,
+                                        deleteCustomer}} >
             {/* {console.log("TrainerProvider return: ", customersList)}
             {console.log("TrainerProvider function return: ", setCustomersList)} */}
             {props.children} 
