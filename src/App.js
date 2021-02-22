@@ -22,7 +22,7 @@ function App() {
   const isLoggedin = true; // [AMN] Provisionally till we have the signup/signin ready
   return (
     <Router>
-      <div className="App">
+      <div className="App font-body ">
         <Navbar />
         <TrainerContextProvider >
           {console.log("I'm back from TrainerProvider...")}

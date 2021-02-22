@@ -72,13 +72,13 @@ export default function CustomerDetails() {
 
     return (
         <div>
-            <div className="custdata">
-                <h2>Customer Details - { id } - {customerData.email}</h2>
+            <div className="max-w-screen-sm my-0 mx-auto text-center">
+                <h1 className="text-gray-700 text-3xl font-bold uppercase">Customer Details</h1>
                 { error && <div> { error } </div>}
                 { customerData && (
-                    <form>
-                        <label>Name: </label>
-                        <input
+                    <form className="w-full">
+                        <label className="custdetlabel">Name: </label>
+                        <input className="custdetfield"
                             key="1"
                             type="text"
                             required
@@ -87,8 +87,8 @@ export default function CustomerDetails() {
                             // onKeyDown={handleKeyDown}
                             value={customerData.name}
                         />
-                        <label>Surname: </label>
-                        <input
+                        <label className="custdetlabel">Surname: </label>
+                        <input className="custdetfield"
                             key="2"
                             type="text"
                             required
@@ -97,8 +97,8 @@ export default function CustomerDetails() {
                             // onKeyDown={handleKeyDown}
                             value={customerData.surname}
                         />
-                        <label>Weigth: </label>
-                        <input
+                        <label className="custdetlabel">Weigth: </label>
+                        <input className="custdetfield"
                             key="4"
                             type="number"
                             name="weigth"
@@ -106,8 +106,8 @@ export default function CustomerDetails() {
                             // onKeyDown={handleKeyDown}
                             value={customerData.weigth}
                         />
-                        <label>Heigth: </label>
-                        <input
+                        <label className="custdetlabel">Heigth: </label>
+                        <input className="custdetfield"
                             key="5"
                             type="number"
                             name="heigth"
@@ -115,8 +115,8 @@ export default function CustomerDetails() {
                             // onKeyDown={handleKeyDown}
                             value={customerData.heigth}
                         />
-                        <label>Birthdate: </label>
-                        <input
+                        <label className="custdetlabel">Birthdate: </label>
+                        <input className="custdetfield"
                             key="6"
                             type="date"
                             name="birthdate"
@@ -129,11 +129,11 @@ export default function CustomerDetails() {
                         {customerData.perimeters.length &&
                          customerData.perimeters.map((perimeter, index) => (
                             <div>
-                                <label>Perímeters measured on - {perimeter.perDate.slice(0,4)+"-"+
+                                <label className="custdetlabel">Perímeters measured on - {perimeter.perDate.slice(0,4)+"-"+
                                                                  perimeter.perDate.slice(5,7)+"-"+
                                                                  perimeter.perDate.slice(8,10)}</label>
-                                <label> - Chest: </label>
-                                <input
+                                <label className="text-yellow-500 text-2xl"> - Chest: </label>
+                                <input className="custdetfield"
                                     key={index+100}
                                     type="number"
                                     name={"perimeters["+index+"].perChest"}
@@ -141,8 +141,8 @@ export default function CustomerDetails() {
                                     // onKeyDown={handleKeyDown}
                                     value={perimeter.perChest}
                                 />
-                                <label> - Waist: </label>
-                                <input
+                                <label className="custdetlabel"> - Waist: </label>
+                                <input className="custdetfield"
                                     key={index+101}
                                     type="number"
                                     name={"perimeters["+index+"].perWaist"}
@@ -150,8 +150,8 @@ export default function CustomerDetails() {
                                     // onKeyDown={handleKeyDown}
                                     value={perimeter.perWaist}
                                 />
-                                <label> - Hip: </label>
-                                <input
+                                <label className="custdetlabel"> - Hip: </label>
+                                <input className="custdetfield"
                                     key={index+102}
                                     type="number"
                                     name={"perimeters["+index+"].perHip"}
@@ -164,12 +164,12 @@ export default function CustomerDetails() {
                         {customerData.skinTurgor.length &&
                          customerData.skinTurgor.map((skinTurgor, index) => (
                             <div>
-                                <label>Skin turgor measured on - {skinTurgor.skinDate.slice(0,4)+"-"+
+                                <label className="custdetlabel">Skin turgor measured on - {skinTurgor.skinDate.slice(0,4)+"-"+
                                                                   skinTurgor.skinDate.slice(5,7)+"-"+
                                                                   skinTurgor.skinDate.slice(8,10)}
                                 </label>
-                                <label> - Skin1: </label>
-                                <input
+                                <label className="custdetlabel"> - Skin1: </label>
+                                <input className="custdetfield"
                                     key={index+200}
                                     type="number"
                                     name={"skinTurgor["+index+"].skin1"}
@@ -184,26 +184,26 @@ export default function CustomerDetails() {
                                 </select> */}
                             </div>
                         ))}
-                        <label>Objective: </label>
-                        <input
+                        <label className="custdetlabel">Objective: </label>
+                        <input className="custdetfield"
                             key="7"
                             name="objective"
                             onChange={(event) => handleChange(event)}
                             // onKeyDown={handleKeyDown}
                             value={customerData.objective}
                         />
-                        <label>Injuries and/or disseases: </label>
-                        <input
+                        <label className="custdetlabel">Injuries and/or disseases: </label>
+                        <input className="custdetfield"
                             key="8"
                             name="injuriesDiseases"
                             onChange={(event) => handleChange(event)}
                             // onKeyDown={handleKeyDown}
                             value={customerData.injuriesDiseases}
                         />
-                        {!isPending && <button onClick={handleSubmit}>Update Customer</button>}<br/>
-                        {isPending && <button disabled>Updating customer...</button>}<br/>
-                        {!isPending && <button onClick={handleDelete}>Delete Customer</button>}<br/>
-                        {isPending && <button disabled>Deleting customer...</button>}<br/>
+                        {!isPending && <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" onClick={handleSubmit}>Update Customer</button>}<br/>
+                        {isPending && <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" disabled>Updating customer...</button>}<br/>
+                        {!isPending && <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" onClick={handleDelete}>Delete Customer</button>}<br/>
+                        {isPending && <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" disabled>Deleting customer...</button>}<br/>
                     </form>
                 )}
                 <p>It lacks perimeters data measurements on a loop(map) with possibilities to add measurements on different dates</p>

@@ -16,6 +16,6 @@
     @apply text-yellow-500 text-2xl text-left block;
 }
 
-.btn {
-    @apply rounded-full py-2 px-3 uppercase text-xs font-bold cursor-pointer tracking-wider;
-}
+/* .btn {
+    @apply rounded-full py-2 px-3 uppercase text-xs font-bold cursor-pointer tracking-wider border-primary border-2;
+} */
