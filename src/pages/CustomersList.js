@@ -8,9 +8,6 @@ function CustomersList () {
     const {customersList, setCustomersList, 
            error, setError,
            fetchAllCustomers} = useContext(TrainerContext);
-    // console.log("Within function CustomerList.js with context: ", customersList);
-    // console.log("Setcustomerslist: ", setCustomersList);
-    // console.log("Fucntion fetchallcustomers: ", fetchAllCustomers);
 
     // On the first render we look for the customers of the trainer. If we wanted to look for the customers
     // each time the customersList changed we should put at the end of the useEffect [customersList] instead
@@ -35,17 +32,16 @@ function CustomersList () {
                     {customersList && customersList.map(customer => {
                         return (
                             <div className="custcard" key={customer._id}>
-                                <Link className="flex-row" to={`/customerdetails/${customer._id}`}>
-                                    <div className="flex-column">
-                                        <h2 className="text-yellow-500 text-2xl">Surname: </h2><p className="text-gray-600">{customer.surname},</p>
-                                        <h2 className="text-yellow-500 text-2xl">Name: </h2><p className="text-gray-600">{customer.name}</p>
-                                    </div>
-                                    <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>  
-                                </Link>
+                                <div className="flex-row">
+                                    <Link to={`/customerdetails/${customer._id}`}>
+                                        <div className="flex-column">
+                                            <h2 className="text-yellow-500 text-2xl">Surname: </h2><p className="text-gray-600">{customer.surname},</p>
+                                            <h2 className="text-yellow-500 text-2xl">Name: </h2><p className="text-gray-600">{customer.name}</p>
+                                        </div>
+                                    </Link>
+                                </div>
                                 <div className="flex-row m-auto mt-3 mb-3">
-                                    <Link className="rounded bg-red-500 text-white p-2 m-auto mt-3 mb-3 w-20 " to={`/customersessions/${customer._id}`}>
+                                    <Link className="rounded bg-red-500 text-white p-2 m-auto mt-3 mb-3 w-20 hover:bg-primary" to={`/customersessions/${customer._id}`}>
                                         Sessions
                                         <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
