@@ -49,6 +49,16 @@ class Service {
             console.log("The error from deleteCustomer is: ", error);
         };
     };
+
+    getTrainer = async (trainerEmail) => {
+        const getTrainerRoute = "/trainer-routes/trainer?trainerEmail=" + trainerEmail;
+        try {
+            const res = await this.service.get(getTrainerRoute);     
+            return res.data;       
+        } catch (error) {
+            console.log("The error from getting the trainer is: ", error);
+        }
+    }
 };
 
 const axiosRequestFunctions = new Service();

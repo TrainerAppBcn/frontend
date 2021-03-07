@@ -6,9 +6,11 @@ export const TrainerContext = createContext();
 
 function TrainerContextProvider (props) {
     const trainerId = "5ffb2d0deed9fa20eab8044f";
+    const trainerEmail = "martinez.andreu@gmail.com";
     // console.log("I'm within provider: ", trainerId);
     
     const [customersList, setCustomersList] = useState(null);
+    const [trainerData, setTrainerData] = useState(null)
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
     const history = useHistory();
@@ -69,6 +71,23 @@ function TrainerContextProvider (props) {
         };
     };
 
+    const getTrainer = async (trainerEmail) => {
+        try {
+            setIsPending(true);
+            const trainer = await services.getTrainer(trainerEmail);
+            setIsPending(false);
+            if (!trainer) {
+                throw Error(`The trainer with email: ${trainerEmail} wasn't found.`);
+            };
+            setTrainerData(trainer);
+            setError(null);            
+        } catch (error) {
+            setIsPending(false);
+            setError(error.message);
+            console.log(`Error while getting the trainer with email: ${trainerEmail}`);
+        };
+    };
+
     return (
         
         <TrainerContext.Provider value={{customersList, setCustomersList, 
@@ -76,7 +95,9 @@ function TrainerContextProvider (props) {
                                         fetchAllCustomers,
                                         updateCustomer,
                                         isPending, setIsPending,
-                                        deleteCustomer}} >
+                                        deleteCustomer,
+                                        trainerData, setTrainerData,
+                                        getTrainer}} >
             {/* {console.log("TrainerProvider return: ", customersList)}
             {console.log("TrainerProvider function return: ", setCustomersList)} */}
             {props.children} 

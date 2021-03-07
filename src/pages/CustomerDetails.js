@@ -7,43 +7,20 @@ export default function CustomerDetails() {
     const { id } = useParams(); // It grabs the id parameter defined on the route.
     const {customersList, setCustomersList, updateCustomer, isPending, deleteCustomer} = useContext(TrainerContext);
     let customerData, indexData, error;
-    // console.log("CustomersList: ", customersList);
-    // console.log("Is Pending: ", isPending);
     if (customersList !== null) {
         customerData = customersList.find(customer => customer._id === id);
         indexData = customersList.findIndex(customer => customer._id === id);
-        // console.log("Customer Data: ", customerData);
-        // console.log(customersList[indexData].birthdate.slice(8,10)+"/"+customersList[indexData].birthdate.slice(5,7)+"/"+customersList[indexData].birthdate.slice(0,4));
-        // console.log(customersList[indexData].birthdate.slice(0,4)+"-"+customersList[indexData].birthdate.slice(5,7)+"-"+customersList[indexData].birthdate.slice(8,10));
         const {name, surname} = customerData;
     } else {
         error = `The customer with id: ${id} didn't exist `;
     };
 
-    // const [name, setName] = useState(customerData.name);
-    // const [surname, setSurname] = useState(customerData.surname);
-
-    // function handleChange(event, index) {
-    //     const { name, value } = event.target;
-    //     const newExpenses = [...expenses];
-    //     newExpenses[index] = {
-    //       ...expenses[index],
-    //       [name]: value
-    //     };
-    //     setExpenses(newExpenses);
-    // };
-
     function handleChange(event) {
         const { name, value } = event.target; 
-        // console.log("Name: ", name);
-        // console.log("Value: ", value);
-        // console.log(typeof value);
         let newCustomerList = [...customersList];
-        // console.log(name.slice(0,10));
         if (name.slice(0,9) === 'perimeter' || name.slice(0,10) === 'skinTurgor') {
             const indexEnds = name.split("").findIndex(digit => digit === "]");
             const index = name.slice(11,indexEnds);
-            // console.log("Index ends: ", indexEnds);
             if (name.slice(0,9) === 'perimeter') {
                 newCustomerList[indexData].perimeters[index][name.slice(indexEnds+2,22)] = Number(value);
             } else {
@@ -59,10 +36,7 @@ export default function CustomerDetails() {
 
     function handleSubmit (event) {
         event.preventDefault(); // It prevents refreshing the page
-        // console.log("Handle submit Customer Data: ", customerData);
-        // console.log("Ispending before update: ", isPending);
         updateCustomer(indexData);
-        // console.log("IsPending after update: ", isPending);
     };
 
     function handleDelete (event) {
