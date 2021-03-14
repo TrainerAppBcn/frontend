@@ -1,12 +1,24 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { TrainerContext } from "../contexts/TrainerContext";
 
 export default function CustomerDetails() {
 
     const { id } = useParams(); // It grabs the id parameter defined on the route.
-    const {customersList, setCustomersList, updateCustomer, isPending, deleteCustomer} = useContext(TrainerContext);
+    const {customersList, setCustomersList, 
+           updateCustomer, 
+           isPending, 
+           deleteCustomer,
+           setIsHide,
+           setClassNav} = useContext(TrainerContext);
+
+    useEffect(() => {
+        setIsHide(true)
+        setClassNav("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
+    }, [])
+
     let customerData, indexData, error;
+
     if (customersList !== null) {
         customerData = customersList.find(customer => customer._id === id);
         indexData = customersList.findIndex(customer => customer._id === id);

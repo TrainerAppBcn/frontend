@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
+import { TrainerContext } from "../contexts/TrainerContext";
 
 export default function TrainerDetails() {
-    // const {customer} = this.props.location;
+    
+    const {setIsHide, setClassNav} = useContext(TrainerContext);
+
+    useEffect(() => {
+        setIsHide(true)
+        setClassNav("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
+    }, [])
+
     return (
         <div>
             <div className="flex flex-col">

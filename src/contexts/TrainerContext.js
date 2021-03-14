@@ -7,12 +7,13 @@ export const TrainerContext = createContext();
 function TrainerContextProvider (props) {
     const trainerId = "5ffb2d0deed9fa20eab8044f";
     const trainerEmail = "martinez.andreu@gmail.com";
-    // console.log("I'm within provider: ", trainerId);
     
     const [customersList, setCustomersList] = useState(null);
     const [trainerData, setTrainerData] = useState(null)
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
+    const [isHide, setIsHide] = useState(true);
+    const [classNav, setClassNav] = useState("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
     const history = useHistory();
     
     const fetchAllCustomers = async (trainerId) => {
@@ -95,6 +96,8 @@ function TrainerContextProvider (props) {
                                         fetchAllCustomers,
                                         updateCustomer,
                                         isPending, setIsPending,
+                                        isHide, setIsHide,
+                                        classNav, setClassNav,
                                         deleteCustomer,
                                         trainerData, setTrainerData,
                                         getTrainer}} >

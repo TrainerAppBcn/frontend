@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import {TrainerContext} from "../contexts/TrainerContext";
 
-console.log("I'm within CustomersList.js");
 function CustomersList () {
     const [isLoading, setIsLoading] = useState(true);
-    const {customersList, setCustomersList, 
-           error, setError,
+    const {customersList, 
+           error,
+           setIsHide,
+           setClassNav,
            fetchAllCustomers,
            trainerData, getTrainer} = useContext(TrainerContext);
 
@@ -24,7 +25,11 @@ function CustomersList () {
         setIsLoading(false);
     }, []);
 
-    // fetchAllCustomers("5ffb2d0deed9fa20eab8044f");
+    // On each first render we hide the burguer menu to avoid it appearing open when we come from another page. 
+    useEffect(() => {
+        setIsHide(true)
+        setClassNav("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
+    }, [])
 
     return (
         <main>

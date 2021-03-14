@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 // import './App.css';
 import Navbar from './lib/components/Navbar';
 import CustomerDetails from './pages/CustomerDetails';
@@ -7,9 +7,7 @@ import CustomersList from './pages/CustomersList';
 import TrainerDetails from './pages/TrainerDetails';
 import CustomerSessions from './pages/CustomerSessions';
 import Login from './pages/Login';
-import TrainerProvider from './contexts/TrainerContext';
 import TrainerContextProvider from './contexts/TrainerContext';
-import { computeHeadingLevel } from '@testing-library/react';
 import NotFound from './pages/NotFound';
 
 // IMPORTANT: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
@@ -19,13 +17,11 @@ import NotFound from './pages/NotFound';
 // user writes a non-existing url it will see the NotFound page. The * allows
 // React to catch any url that is not one of the exinting ones.
 function App() {
-  const isLoggedin = true; // [AMN] Provisionally till we have the signup/signin ready
   return (
     <Router>
       <div className="App font-body ">
-        <Navbar />
         <TrainerContextProvider >
-          {console.log("I'm back from TrainerProvider...")}
+          <Navbar />
           <Switch>
             <Route exact path="/" component={CustomersList}/> 
             <Route exact path="/customerdetails/:id" component={CustomerDetails}/> 

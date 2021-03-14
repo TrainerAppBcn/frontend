@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link } from "react-router-dom";
+import {TrainerContext} from "../../contexts/TrainerContext";
 
 export default function Navbar() {
     
-    const [classNav, setClassNav] = useState("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
-    const [isHide, setIsHide] = useState(true);
-
+    // AMN - The state is used locally to control the aspect of the navbar through Tailwind CSS   
+    const {isHide, setIsHide,
+           classNav, setClassNav } = useContext(TrainerContext);
+    
     function hideUnhide (e) {
         e.preventDefault();
         if (isHide) {
@@ -20,7 +22,7 @@ export default function Navbar() {
     return (
         <nav className="flex flex-row" >
             <div className="px-4 cursor-pointer my-6 md:hidden">
-                <button onClick={hideUnhide}>
+                <button classList="burguer-list" onClick={hideUnhide}>
                     <svg className="w-8 bg-red-500 text-white mx-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                     </svg>
