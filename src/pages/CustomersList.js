@@ -21,7 +21,7 @@ function CustomersList () {
     }, []);
 
     useEffect(() => {
-        getTrainer("martinez.andreu@gmail.com"); 
+        getTrainer("martinez.andreu@gmail.com"); // We get the trainer data
         setIsLoading(false);
     }, []);
 

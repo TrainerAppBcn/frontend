@@ -9,7 +9,9 @@ function TrainerContextProvider (props) {
     const trainerEmail = "martinez.andreu@gmail.com";
     
     const [customersList, setCustomersList] = useState(null);
+    const [customerSessions, setCustomerSessions] = useState(null);
     const [trainerData, setTrainerData] = useState(null)
+    const [customerData, setCustomerData] = useState(null)
     const [error, setError] = useState(null);
     const [isPending, setIsPending] = useState(false);
     const [isHide, setIsHide] = useState(true);
@@ -18,12 +20,10 @@ function TrainerContextProvider (props) {
     
     const fetchAllCustomers = async (trainerId) => {
         try {
-            // console.log("Within try");
             const customers = await services.getCustomers(trainerId);
             if (!customers) {
                 throw Error(`The customers from the trainer with id ${trainerId} weren't fetched.`);
             };
-            // console.log("The customers are: ", customers);
             setCustomersList(customers);      
             setError(null);
         } catch (error) {
@@ -35,11 +35,6 @@ function TrainerContextProvider (props) {
     const updateCustomer = async (indexData) => {
         try {
             setIsPending(true);
-            // console.log("IsPending on trainercontext before update: ", isPending);
-            // console.log("Within updating customer");
-            // console.log("Index to update: ", indexData);
-            // console.log("With customerId: ", customersList[indexData]._id);
-            // console.log("Data to update: ", customersList[indexData]);
             const customer = await services.updateCustomer(customersList[indexData]._id, customersList[indexData]);
             setIsPending(false);
             if (!customer) {
@@ -52,7 +47,6 @@ function TrainerContextProvider (props) {
             setError(error.message);
             console.log(`Error while updating the customer with id: ${customersList[indexData]._id}`);
         };
-        // console.log("IsPending on trainercontext after update: ", isPending);
     };
 
     const deleteCustomer = async (indexData) => {
@@ -89,20 +83,53 @@ function TrainerContextProvider (props) {
         };
     };
 
+    const fetchAllSessions = async (customerId) => {
+        try {
+            console.log("Customer id for getting sessions: ", customerId);
+            const sessions = await services.getSessions(customerId);
+            if (!sessions) {
+                throw Error(`The sessions from the customer with id ${customerId} weren't fetched.`);
+            };
+            setCustomerSessions(sessions);      
+            setError(null);
+        } catch (error) {
+            setError(error.message);
+            console.log("Error while getting the sessions: ", error);
+        };
+    };
+
+    const getCustomer = async (customerId) => {
+        try {
+            setIsPending(true);
+            const customer = await services.getCustomer(customerId);
+            setIsPending(false);
+            if (!customer) {
+                throw Error(`The customer with id: ${customerId} wasn't found.`);
+            };
+            setCustomerData(customer);
+            setError(null);            
+        } catch (error) {
+            setIsPending(false);
+            setError(error.message);
+            console.log(`Error while getting the customer with id: ${customerId}`);
+        };
+    };
+
     return (
         
         <TrainerContext.Provider value={{customersList, setCustomersList, 
+                                        customerSessions, setCustomerSessions,
                                         error, setError, 
                                         fetchAllCustomers,
+                                        fetchAllSessions,
                                         updateCustomer,
                                         isPending, setIsPending,
                                         isHide, setIsHide,
                                         classNav, setClassNav,
                                         deleteCustomer,
                                         trainerData, setTrainerData,
-                                        getTrainer}} >
-            {/* {console.log("TrainerProvider return: ", customersList)}
-            {console.log("TrainerProvider function return: ", setCustomersList)} */}
+                                        customerData, setCustomerData,
+                                        getTrainer, getCustomer}} >
             {props.children} 
         </TrainerContext.Provider>
     );

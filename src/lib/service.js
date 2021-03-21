@@ -59,6 +59,28 @@ class Service {
             console.log("The error from getting the trainer is: ", error);
         }
     }
+
+    getSessions = async (customerId) => {
+        console.log("Service getting sessions");
+        const getRoute = "/session-routes/sessionsOneCustomer/" + customerId;
+        try {
+            const res = await this.service.get(getRoute);
+            return res.data;
+        } catch (error) {
+            console.log("The error from getSessions is: ", error);
+        };
+    };
+
+    getCustomer = async (customerId) => {
+        const getCustomerRoute = "/customer-routes/customerget?customerId=" + customerId;
+        try {
+            const res = await this.service.get(getCustomerRoute);     
+            return res.data;       
+        } catch (error) {
+            console.log("The error from getting the trainer is: ", error);
+        }
+    }
+
 };
 
 const axiosRequestFunctions = new Service();
