@@ -30,7 +30,7 @@ function CustomersList () {
         setIsHide(true)
         setClassNav("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
     }, [])
-
+    
     return (
         <main>
             <div className="flex flex-col items-center">

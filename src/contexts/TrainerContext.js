@@ -40,7 +40,6 @@ function TrainerContextProvider (props) {
             if (!customer) {
                 throw Error(`The customer with id: ${customersList[indexData]._id} wasn't updated.`);
             };
-            history.push('/customerslist')
             setError(null);
         } catch (error) {
             setIsPending(false);
@@ -57,7 +56,7 @@ function TrainerContextProvider (props) {
             if (!customer) {
                 throw Error(`The customer with id: ${customersList[indexData]._id} wasn't deleted.`);
             };
-            history.push('/customerslist')
+            history.push('/')
             setError(null);
         } catch (error) {
             setIsPending(false);
@@ -80,6 +79,22 @@ function TrainerContextProvider (props) {
             setIsPending(false);
             setError(error.message);
             console.log(`Error while getting the trainer with email: ${trainerEmail}`);
+        };
+    };
+
+    const updateSession = async (indexData) => {
+        try {
+            setIsPending(true);
+            const session = await services.updateSession(customerSessions[indexData]._id, customerSessions[indexData]);
+            setIsPending(false);
+            if (!session) {
+                throw Error(`The session with id: ${customerSessions[indexData]._id} wasn't updated.`);
+            };
+            setError(null);
+        } catch (error) {
+            setIsPending(false);
+            setError(error.message);
+            console.log(`Error while updating the session with id: ${customerSessions[indexData]._id}`);
         };
     };
 
@@ -115,6 +130,18 @@ function TrainerContextProvider (props) {
         };
     };
 
+    function formatTime(oneTime) {
+        const hourNum = oneTime / 100
+        const hourStr = Math.trunc(hourNum).toString().padStart(2, '0')
+        const minStr  = (oneTime - Math.trunc(hourNum) * 100).toString().padStart(2, '0')
+        
+        return hourStr + ':' + minStr
+    }
+
+    function handleClickBack(routeBack) {
+        history.push(routeBack)
+    }
+
     return (
         
         <TrainerContext.Provider value={{customersList, setCustomersList, 
@@ -123,6 +150,9 @@ function TrainerContextProvider (props) {
                                         fetchAllCustomers,
                                         fetchAllSessions,
                                         updateCustomer,
+                                        updateSession,
+                                        formatTime,
+                                        handleClickBack,
                                         isPending, setIsPending,
                                         isHide, setIsHide,
                                         classNav, setClassNav,

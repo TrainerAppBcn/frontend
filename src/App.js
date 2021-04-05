@@ -9,6 +9,7 @@ import CustomerSessions from './pages/CustomerSessions';
 import Login from './pages/Login';
 import TrainerContextProvider from './contexts/TrainerContext';
 import NotFound from './pages/NotFound';
+import SessionDetails from './pages/SessionDetails';
 
 // IMPORTANT: https://www.pluralsight.com/guides/how-to-pass-data-between-react-components
 
@@ -27,6 +28,7 @@ function App() {
             <Route exact path="/customerdetails/:id" component={CustomerDetails}/> 
             <Route exact path="/customersessions/:id" component={CustomerSessions}/>
             <Route exact path="/trainerdetails" component={TrainerDetails}/> 
+            <Route exact path="/sessiondetails/:id" component={SessionDetails}/>
             <Route exact path="/signin" component={Login}/>
             <Route path="*"> 
               <NotFound />

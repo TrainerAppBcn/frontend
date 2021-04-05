@@ -50,6 +50,18 @@ class Service {
         };
     };
 
+    updateSession = async (sessionId, sessionData) => {
+        console.log("Service updating a session data... serviceId", sessionId);
+        console.log("Data: ", sessionData)
+        const putRoute = "/session-routes/sessionupdate/" + sessionId;
+        try {
+            const res = await this.service.put(putRoute, {sessionData});
+            return res.data;
+        } catch (error) {
+            console.log("The error from updateSession is: ", error);
+        };
+    };
+
     getTrainer = async (trainerEmail) => {
         const getTrainerRoute = "/trainer-routes/trainer?trainerEmail=" + trainerEmail;
         try {

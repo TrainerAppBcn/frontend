@@ -11,6 +11,8 @@ export default function CustomerSessions() {
            setIsHide,
            setClassNav,
            fetchAllSessions,
+           formatTime,
+           handleClickBack,
            customerData, getCustomer} = useContext(TrainerContext);
     
     // On the first render we look for the sessions of the customer.
@@ -30,6 +32,11 @@ export default function CustomerSessions() {
         setClassNav("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
     }, []);
 
+    function handleBack(event) {
+        event.preventDefault()
+        handleClickBack(`/`)
+    }
+
     function formatDate (oneDate) {
         const theDate = new Date(oneDate);
         const dd = String(theDate.getDate()).padStart(2, '0');
@@ -38,13 +45,6 @@ export default function CustomerSessions() {
 
         return yyyy + '/' + mm + '/' + dd;
     };
-
-    function formatTime (oneTime) {
-        const hh = Math.trunc(oneTime / 100);
-        const mm = oneTime - hh * 100;
-
-        return hh + ':' + mm;
-    }
            
     return (
         <main>
@@ -81,24 +81,17 @@ export default function CustomerSessions() {
                                             null
                                         }
                                 </Link>
-
-                                {/* <Link className="flex flex-row" to={`/customerdetails/${customer._id}`}>
-                                    
-                                        <p className="flex text-gray-600 text-2xl">&nbsp;{`${customer.surname}, ${customer.name}`}</p>
-                                        <p className="flex text-gray-600 text-2xl">&nbsp;-&nbsp;{customer.email}</p>
-                                    
-                                </Link>
-                                <div className="flex-row m-auto mt-3 mb-3 transform hover:scale-125">
-                                    <Link className="rounded bg-red-500 text-white p-2 w-20 hover:bg-primary transition ease-out duration-300" to={`/customersessions/${customer._id}`}>
-                                        Sessions
-                                        <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                    </Link>
-                                </div> */}
                             </div>
                         )
                     })}
+                    <br/>
+                    <button className="flex flex-row cursor-pointer rounded bg-red-500 hover:bg-primary text-white p-2 ml-4" 
+                            onClick={handleBack}>Back
+                        <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <br/>
                 </div>
             </div>
         </main>

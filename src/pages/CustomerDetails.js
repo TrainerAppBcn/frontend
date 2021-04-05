@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { TrainerContext } from "../contexts/TrainerContext";
 
@@ -10,6 +10,7 @@ export default function CustomerDetails() {
            isPending, 
            deleteCustomer,
            setIsHide,
+           handleClickBack,
            setClassNav} = useContext(TrainerContext);
 
     useEffect(() => {
@@ -22,7 +23,6 @@ export default function CustomerDetails() {
     if (customersList !== null) {
         customerData = customersList.find(customer => customer._id === id);
         indexData = customersList.findIndex(customer => customer._id === id);
-        const {name, surname} = customerData;
     } else {
         error = `The customer with id: ${id} didn't exist `;
     };
@@ -50,6 +50,16 @@ export default function CustomerDetails() {
         event.preventDefault(); // It prevents refreshing the page
         updateCustomer(indexData);
     };
+
+    function handleBack(event) {
+        event.preventDefault()
+        handleClickBack(`/`)
+    }
+
+    // AMN - Pending things:
+    // a) To request deletion confirmation before deleting the customer
+    // b) To dedice whether we want to really delete it or mark it as inactive (to avoid losing data for historical reasons)
+    // c) For the sessions to delete or mark them as inactive
 
     function handleDelete (event) {
         event.preventDefault();
@@ -186,31 +196,42 @@ export default function CustomerDetails() {
                             // onKeyDown={handleKeyDown}
                             value={customerData.injuriesDiseases}
                         />
-                        {!isPending && 
-                            <button className="cursor-pointer rounded bg-red-500 hover:bg-primary text-white p-2 ml-4" 
-                                    onClick={handleSubmit}>Update Customer
-                                <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                </svg> 
-                            </button>
-                        }
-                        <br/>
-                        {isPending && 
-                            <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" disabled>Updating customer...
-                            </button>
-                        }
-                        <br/>
-                        {!isPending && 
-                            <button className="cursor-pointer rounded bg-red-500 hover:bg-primary text-white p-2 ml-4" onClick={handleDelete}>Delete Customer
-                                <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                            </button>
-                        }
-                        <br/>
-                        {isPending && 
-                        <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" disabled>Deleting customer...</button>}
-                        <br/>
+                        <br></br>
+                        <div className="flex flex-row justify-around">
+                            {!isPending && 
+                                <button className="cursor-pointer rounded bg-red-500 hover:bg-primary text-white p-2 ml-4" 
+                                        onClick={handleSubmit}>Update
+                                    <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg> 
+                                </button>
+                            }
+                            {isPending && 
+                                <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" disabled>Updating customer...
+                                </button>
+                            }
+                            {!isPending &&
+                                <button className="flex flex-row cursor-pointer rounded bg-red-500 hover:bg-primary text-white p-2 ml-4" 
+                                        onClick={handleBack}>Back
+                                    <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                    </svg>
+                                </button>
+                            }   
+                            {!isPending && 
+                                <button className="cursor-pointer rounded bg-red-500 hover:bg-primary text-white p-2 ml-4" 
+                                        onClick={handleDelete}>Delete
+                                    <svg className="w-5 inline-block ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            }
+                            {isPending && 
+                                <button className="cursor-pointer rounded bg-red-500 text-white p-2 ml-4" disabled>Deleting customer...
+                                </button>
+                            }
+                        </div>
+                        <br></br>
                     </form>
                 )}
                 <p>It lacks perimeters data measurements on a loop(map) with possibilities to add measurements on different dates</p>
