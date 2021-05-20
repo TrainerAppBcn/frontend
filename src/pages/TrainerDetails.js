@@ -1,13 +1,11 @@
-import React, {useContext, useEffect} from 'react';
-import { TrainerContext } from "../contexts/TrainerContext";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { setIsHide } from '../store/actions/customerActions';
 
-export default function TrainerDetails() {
+function TrainerDetails(props) {
     
-    const {setIsHide, setClassNav} = useContext(TrainerContext);
-
     useEffect(() => {
-        setIsHide(true)
-        setClassNav("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
+        props.setIsHide(true)
     }, [])
 
     return (
@@ -21,3 +19,17 @@ export default function TrainerDetails() {
         </div>
     )
 };
+
+const mapStateToProps = (state) => {
+    return {
+      setIsHide: state.setIsHide
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setIsHide: (isHide) => { dispatch(setIsHide(isHide))}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrainerDetails);

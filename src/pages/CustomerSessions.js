@@ -1,41 +1,35 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import {TrainerContext} from "../contexts/TrainerContext";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux'; // connect is a HOC function
+import { fetchAllSessions, setIsHide, getCustomer } from '../store/actions/customerActions';
+import { useHistory } from 'react-router-dom';
 
-function CustomerSessions() {
+function CustomerSessions(props) {
+
     const { id } = useParams(); // It grabs the id parameter defined on the route.
     const [isLoading, setIsLoading] = useState(true);
-    const {customerSessions,
-           error,
-           setIsHide,
-           setClassNav,
-           fetchAllSessions,
-           formatTime,
-           handleClickBack,
-           customerData, getCustomer} = useContext(TrainerContext);
+    const history = useHistory();
     
     // On the first render we look for the sessions of the customer.
     useEffect(() => {
-        fetchAllSessions(id); 
+        props.fetchAllSessions(id); 
         setIsLoading(false);
     }, []);
 
     useEffect(() => {
-        getCustomer(id); // We get the customer data
+        props.getCustomer(id); // We get the customer data
         setIsLoading(false);
     }, []);
 
     // On each first render we hide the burguer menu to avoid it appearing open when we come from another page. 
     useEffect(() => {
-        setIsHide(true)
-        setClassNav("rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden");
+        props.setIsHide(true)
     }, []);
 
     function handleBack(event) {
         event.preventDefault()
-        handleClickBack(`/`)
+        history.push('/')
     }
 
     function formatDate (oneDate) {
@@ -46,6 +40,14 @@ function CustomerSessions() {
 
         return yyyy + '/' + mm + '/' + dd;
     };
+
+    function formatTime(oneTime) {
+        const hourNum = oneTime / 100
+        const hourStr = Math.trunc(hourNum).toString().padStart(2, '0')
+        const minStr  = (oneTime - Math.trunc(hourNum) * 100).toString().padStart(2, '0')
+        
+        return hourStr + ':' + minStr
+    }
            
     return (
         <main>
@@ -54,13 +56,13 @@ function CustomerSessions() {
                     <h1 className="text-gray-700 text-3xl font-bold uppercase flex flex-col items-center">Sessions List</h1>
                     <div className="flex flex-row">
                         <h2 className="flex text-yellow-500 text-2xl">Customer: </h2>
-                        {customerData && <p className="flex text-gray-600 text-2xl">&nbsp;{`${customerData.surname}, ${customerData.name}`}</p>}
+                        {props.customerData && <p className="flex text-gray-600 text-2xl">&nbsp;{`${props.customerData.surname}, ${props.customerData.name}`}</p>}
                     </div>
                 </header>
                 <div className="flex flex-col items-center">
-                    { error && <div> { error } </div>}
+                    { props.error && <div> { props.error } </div>}
                     { isLoading && <div>Loading...</div>}
-                    { customerSessions && customerSessions.map(session => {
+                    { props.customerSessions && props.customerSessions.map(session => {
                         return (
                             <div className="flex flex-row custcard transition ease-out duration-500" key={session._id}>
                                 <Link className="flex flex-row" to={`/sessiondetails/${session._id}`}>     
@@ -101,10 +103,20 @@ function CustomerSessions() {
 
 const mapStateToProps = (state) => {
     return {
-      CustomerSessions: state.CustomerSessions,
+      customerSessions: state.customerSessions,
+      customerData: state.customerData,
       setIsHide: state.setIsHide,
       setClassNav: state.setClassNav,
+      error: state.error,
     }
 }
 
-export default connect(mapStateToProps)(CustomerSessions);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchAllSessions: (id) => { dispatch(fetchAllSessions(id)) },
+        getCustomer: (customerId) => { dispatch(getCustomer(customerId))},
+        setIsHide: (isHide) => { dispatch(setIsHide(isHide))},
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerSessions);

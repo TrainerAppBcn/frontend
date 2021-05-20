@@ -93,6 +93,16 @@ class Service {
         }
     }
 
+    getSession = async (sessionId) => {
+        const getSessionRoute = "/session-routes/sessionget?sessionId=" + sessionId;
+        try {
+            const res = await this.service.get(getSessionRoute);     
+            return res.data;       
+        } catch (error) {
+            console.log("The error from getting the session is: ", error);
+        }
+    }
+
 };
 
 const axiosRequestFunctions = new Service();

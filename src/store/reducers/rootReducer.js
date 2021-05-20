@@ -3,22 +3,19 @@
 // this rootReducer will be the one who would combine authReducer (for Firebase - Nitra's auth)
 // with a new projectReducer that would have this rootReducer info.
 
-//import { useHistory } from 'react-router-dom';
-import services from "../../lib/service";
-
 const initState = {
     customersList: [],
     customerSessions: [],
     trainerData: null,
     customerData: null,
+    sessionData: null,
     isCustomerDeleted: false,
+    isSessionDeleted: false,
     error: '',
     isPending: false,
     isHide: true,
     classNav: 'rounded bg-red-500 text-white p-2 mt-0.5 hover:bg-primary transition ease-out duration-500 hidden',
 }
-
-//const history = useHistory();
 
 const rootReducer = (state = initState, action) => {
     console.log("Action: ", action);
@@ -29,7 +26,7 @@ const rootReducer = (state = initState, action) => {
             if (action.error === null) {
                 return {
                     ...state,
-                    customersList: action.customers,
+                    customersList: [...action.customers],
                     isCustomerDeleted: action.isCustomerDeleted,
                     error: action.error
                 }    
@@ -39,20 +36,41 @@ const rootReducer = (state = initState, action) => {
                     error: action.error
                 }    
             }
-            break;
-        case 'UPDATE_CUSTOMER':
+        case 'GET_SESSIONS':
             if (action.error === null) {
-                console.log("Updated customer: ", action.customer);
                 return {
                     ...state,
-                    //customerData: action.customer,
+                    customerSessions: [...action.sessions],
+                    isSessionDeleted: action.isSessionDeleted,
                     error: action.error
-                }
+                }    
             } else {
                 return {
                     ...state,
                     error: action.error
-                }
+                }    
+            }
+        case 'UPDATE_CUSTOMER':
+            return {
+                ...state,
+                error: action.error
+            }
+        case 'UPDATE_SESSION':
+            // if (action.error === null) {
+            //     console.log("Updated session: ", action.session);
+            //     return {
+            //         ...state,
+            //         error: action.error
+            //     }
+            // } else {
+            //     return {
+            //         ...state,
+            //         error: action.error
+            //     }
+            // }
+            return {
+                ...state,
+                error: action.error
             }
         case 'DELETE_CUSTOMER':
             if (action.error === null) {
@@ -68,12 +86,40 @@ const rootReducer = (state = initState, action) => {
                     error: action.error
                 }
             }
+        case 'DELETE_SESSION':
+        if (action.error === null) {
+            return {
+                ...state,
+                sessionData: null,
+                isSessionDeleted: action.isSessionDeleted,
+                error: action.error
+            }
+        } else {
+            return {
+                ...state,
+                error: action.error
+            }
+        }
         case 'GET_CUSTOMER':
             if (action.error === null) {
                 return {
                     ...state,
-                    customerData: action.customer,
+                    customerData: {...action.customer},
                     isCustomerDeleted: action.isCustomerDeleted,
+                    error: action.error
+                }
+            } else {
+                return {
+                    ...state,
+                    error: action.error
+                }
+            }
+        case 'GET_SESSION':
+            if (action.error === null) {
+                return {
+                    ...state,
+                    sessionData: {...action.session},
+                    isSessionDeleted: action.isSessionDeleted,
                     error: action.error
                 }
             } else {
@@ -86,7 +132,7 @@ const rootReducer = (state = initState, action) => {
             if (action.error === null) {
                 return {
                     ...state,
-                    trainerData: action.trainer,
+                    trainerData: {...action.trainer},
                     error: action.error
                 }    
             } else {
@@ -95,13 +141,16 @@ const rootReducer = (state = initState, action) => {
                     error: action.error
                 }    
             }
-            break;
         case 'CHANGE_IS_HIDE':
             return {
                 ...state,
                 isHide: action.isHide
             }
-            break;
+        case 'SET_CLASS_NAV':
+            return {
+                ...state,
+                classNav: action.classNav
+            }
         // case 'CHANGE_IS_CUSTOMER_DELETED':
         //     return {
         //         ...state,
@@ -111,12 +160,18 @@ const rootReducer = (state = initState, action) => {
         case 'SET_CUSTOMERS_LIST':
             return {
                 ...state,
-                customersList: action.newCustomersList
+                customersList: [...action.newCustomersList]
             }
         case 'SET_CUSTOMER_DATA':
             return {
                 ...state,
-                customerData: action.newCustomerData
+                customerData: {...action.newCustomerData}
+            }
+        case 'SET_SESSION_DATA':
+            console.log("Within rootReducer - isSessionConfirmed: ", action.newSessionData);
+            return {
+                ...state,
+                sessionData: {...action.newSessionData}
             }
         case 'SET_IS_PENDING':
             return {

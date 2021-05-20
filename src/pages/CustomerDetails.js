@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux'; // connect is a HOC function
-import { fetchAllCustomers, setIsHide, setCustomersList, setCustomerData, updateCustomer, getCustomer, deleteCustomer, setIsCustomerDeleted } from '../store/actions/customerActions';
+import { setIsHide, setCustomerData, updateCustomer, getCustomer, deleteCustomer } from '../store/actions/customerActions';
 import { useHistory } from 'react-router-dom';
 
 function CustomerDetails(props) {
@@ -16,8 +16,7 @@ function CustomerDetails(props) {
         props.getCustomer(id)
     }, [])
 
-    //let localCustomerData, indexData, error;
-    let indexData, error;
+    let error;
 
     // if (props.customerData !== null) {
     //     localCustomerData = props.customerData
@@ -80,6 +79,7 @@ function CustomerDetails(props) {
                 {/* { localCustomerData && ( */}
                 { props.customerData && (
                     <form className="w-full">
+                        <p>{props.customerData.name}</p>
                         <label className="custdetlabel">Name: </label>
                         <input className="custdetfield"
                             key="1"
@@ -107,7 +107,7 @@ function CustomerDetails(props) {
                             name="weigth"
                             onChange={(event) => handleChange(event)}
                             // onKeyDown={handleKeyDown}
-                            value={props.customerData.weigth}
+                            defaultValue={props.customerData.weigth}
                         />
                         <label className="custdetlabel">Heigth: </label>
                         <input className="custdetfield"
@@ -262,7 +262,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setIsHide: (isHide) => { dispatch(setIsHide(isHide))},
-        //setIsCustomerDeleted: (isCustomerDeleted) => { dispatch(setIsCustomerDeleted(isCustomerDeleted))},
         setCustomerData: (newCustomerData) => { dispatch(setCustomerData(newCustomerData))},
         updateCustomer: (newCustomerData) => { dispatch(updateCustomer(newCustomerData))},
         getCustomer: (customerId) => { dispatch(getCustomer(customerId))},

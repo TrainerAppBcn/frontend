@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'; // connect is a HOC function
 import { fetchAllCustomers, setIsHide } from '../store/actions/customerActions';
@@ -68,7 +68,7 @@ const mapStateToProps = (state) => {
     return {
       customersList: state.customersList,
       error: state.error,
-      setIsHide: state.setIsHide,
+      isHide: state.isHide,
       setClassNav: state.setClassNav,
       trainerData: state.trainerData,
       isCustomerDeleted: state.isCustomerDeleted

@@ -6,7 +6,6 @@ import CustomersList from './pages/CustomersList';
 import TrainerDetails from './pages/TrainerDetails';
 import CustomerSessions from './pages/CustomerSessions';
 import Login from './pages/Login';
-import TrainerContextProvider from './contexts/TrainerContext';
 import NotFound from './pages/NotFound';
 import SessionDetails from './pages/SessionDetails';
 
@@ -20,7 +19,6 @@ function App() {
   return (
     <Router>
       <div className="App font-body ">
-        <TrainerContextProvider >
           <Navbar />
           <Switch>
             <Route exact path="/" component={CustomersList}/> 
@@ -33,7 +31,6 @@ function App() {
               <NotFound />
             </Route>
           </Switch>
-        </TrainerContextProvider>
       </div>
     </Router>
   );
